@@ -18,7 +18,11 @@ module SimpleCaptcha
         if Formtastic.const_defined?("Helpers")
           Formtastic::Helpers::FormHelper.builder = SimpleCaptcha::CustomFormBuilder
         else
-          Formtastic::SemanticFormHelper.builder = SimpleCaptcha::CustomFormBuilder
+          if Formtastic.const_defined?("FormBuilder")
+            Formtastic::FormHelper.builder = SimpleCaptcha::CustomFormBuilder
+          else
+            Formtastic::SemanticFormHelper.builder = SimpleCaptcha::CustomFormBuilder
+          end
         end
       end
     end
